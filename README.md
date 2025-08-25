@@ -42,7 +42,7 @@ The traditional approach represents typical enterprise Java/Kotlin development p
 data class Payment(
     val amount: BigDecimal,        // Can be negative (but not null in Kotlin)
     val method: PaymentMethod,     // Cannot be null in Kotlin
-    val status: PaymentStatus,     // Mutable enum
+    val status: PaymentStatus,
     val paidDate: Date?,          // Nullable, inconsistent with status
     val voidDate: Date?,          // Can conflict with paidDate
     val refundDate: Date?         // Multiple dates can be set simultaneously
@@ -901,7 +901,6 @@ fun transitionToPaid(payment: SafePayment): Either<TransitionError, PaidPayment>
 enum class PaymentStatus { PENDING, PAID, PARTIALLY_PAID, VOIDED, REFUNDED }
 
 // 2. Find ALL places that handle payment status (hard!)
-// - 23 when statements across 15 files
 // - 8 if-else chains  
 // - 12 status validation methods
 // - Runtime discovery of missing cases during testing/production

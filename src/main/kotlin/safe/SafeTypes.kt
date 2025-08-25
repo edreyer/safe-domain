@@ -135,9 +135,9 @@ value class DigitString private constructor(val value: String) {
     fun String.toDigitString(fieldName: String, maxLength: Int? = null, minLength: Int? = null): DigitString {
       val trimmed = this.trim()
       val normalized = trimmed.replace(" ", "")
-      val Digits = normalized.all { it.isDigit() }
+      val digits = normalized.all { it.isDigit() }
       return raise.zipOrAccumulate(
-        { ensure(Digits) { NonDigitError(fieldName) } },
+        { ensure(digits) { NonDigitError(fieldName) } },
         { ensure(normalized.isNotEmpty()) { NonDigitError(fieldName) } },
         { if (maxLength != null) ensure(normalized.length <= maxLength) { ExceedsMaxLength(fieldName, maxLength) } },
         { if (minLength != null) ensure(normalized.length >= minLength) { BelowMinLength(fieldName, minLength) } },
